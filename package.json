@@ -1,0 +1,33 @@
+{
+  "name": "react-risk-board",
+  "version": "0.0.1",
+  "description": "risk board in react",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --colors",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arjan Frans <arjanfrans.com@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2"
+  },
+  "devDependencies": {
+    "babel-loader": "^6.2.4",
+    "xml-parser": "^1.2.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "json-loader": "^0.5.4",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.10.1",
+    "node-sass": "^3.7.0",
+    "nodemon": "^1.9.2",
+    "react-svg-loader": "^1.0.1",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
