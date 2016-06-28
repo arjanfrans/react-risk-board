@@ -7,6 +7,7 @@ class Board extends React.Component {
     static propTypes = {
         viewData: PropTypes.object.isRequired,
         data: PropTypes.object.isRequired,
+        players: PropTypes.array.isRequired,
         onTerritoryHover: PropTypes.func,
         onTerritoryClick: PropTypes.func
     };
@@ -14,7 +15,7 @@ class Board extends React.Component {
     render () {
         const continentNodes = [];
         const markerNodes = [];
-        const { viewData } = this.props;
+        const { viewData, players } = this.props;
 
         for (const continentData of this.props.data.continents) {
             const continentTerritories = [];
@@ -33,7 +34,7 @@ class Board extends React.Component {
                 const territory = {
                     id: territoryData.id,
                     name: territoryData.name,
-                    owner: territoryData.owner,
+                    owner: players.find((player) => player.id === territoryData.owner),
                     continentFill: continentViewData.fill,
                     continent: {
                         id: continentData.id,

@@ -61,6 +61,7 @@ const playerConfig = [
     {
         id: '1',
         name: 'P1',
+        listener: playerEvents,
         color: 'red'
     },
     {
@@ -77,5 +78,7 @@ const playerConfig = [
 
 export default {
     game: gameOptions,
-    players: playerConfig
+    players: playerConfig,
+    localPlayers: [ '1' ],
+    aiListeners: aiEventEmitters
 };

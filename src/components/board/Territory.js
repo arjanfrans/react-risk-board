@@ -24,7 +24,7 @@ class Territory extends React.Component {
     render () {
         const { name } = this.props;
         const clickHandler = (evt) => {
-            this.props.clickHandler(evt);
+            this.props.clickHandler(this.props.data);
         };
 
         const enterHandler = (evt) => {

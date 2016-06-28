@@ -28,8 +28,6 @@ class TurnInfo extends React.Component {
         } = this.props;
         const playerData = players.find((value) => value.id === player);
 
-        console.log(this.props)
-
         let displayPhase = null;
 
         if (gamePhase === 'battle') {
