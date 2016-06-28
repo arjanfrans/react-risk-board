@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --colors",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "./deploy.sh",
+    "build": "NODE_ENV=production webpack"
   },
   "author": "Arjan Frans <arjanfrans.com@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "conquete": "^0.2.3",
+    "conquete": "^0.2.8",
     "debug": "^2.2.0",
     "react": "^15.0.2",
     "react-dom": "^15.0.2"
