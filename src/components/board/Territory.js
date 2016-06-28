@@ -48,30 +48,6 @@ class Territory extends React.Component {
             ownerColor = this.props.data.owner.color;
         }
 
-        let unitMarker = null;
-
-        if (this.props.center) {
-            unitMarker = (
-                <g>
-                    <circle
-                        cx={ this.props.center.x }
-                        cy={ this.props.center.y }
-                        fill="red"
-                        r={ 10 }
-                    />
-                    <text
-                        x={ this.props.center.x }
-                        y={ this.props.center.y }
-                        fill="black"
-                        strokeWidth={ 0 }
-                        fontSize={ 14 }
-                    >
-                        { name }
-                    </text>
-                </g>
-            );
-        }
-
         const svgPath = (
             <g>
                 <path
@@ -86,7 +62,6 @@ class Territory extends React.Component {
                     strokeWidth={ 2 }
                 >
                 </path>
-                { unitMarker }
             </g>
         );
 

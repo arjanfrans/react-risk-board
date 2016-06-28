@@ -3,6 +3,7 @@ import Board from '../components/board/Board';
 import TerritoryInfo from '../components/TerritoryInfo';
 import TurnInfo from '../components/TurnInfo';
 import BonusInfo from '../components/BonusInfo';
+import StartButton from '../components/StartButton';
 import viewData from '../assets/board.json';
 import config from '../config';
 
@@ -25,7 +26,8 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            selectedTerritory: null
+            selectedTerritory: null,
+            started: false
         };
     }
 
@@ -33,7 +35,6 @@ class App extends React.Component {
         const { game } = this.props;
 
         const territoryClickHandler = (evt) => {
-            console.log('click', evt);
         };
 
         const territoryHoverHandler = (territory) => {
@@ -58,9 +59,26 @@ class App extends React.Component {
             territories: gameState.board.territories
         };
 
+        const handleStartClick = () => {
+            game.start();
+
+            this.setState({
+                started: true
+            });
+        };
+
+        let startButton = null;
+
+        if (!this.state.started) {
+            startButton = (
+                <StartButton
+                    clickHandler={ handleStartClick }
+                />
+            );
+        }
+
         return (
             <div>
-                <div>
                     <Board
                         viewData={ viewData }
                         data={ data }
@@ -79,8 +97,8 @@ class App extends React.Component {
                             players={ this.props.players }
                             phaseNames={ PHASE_NAMES }
                         />
+                        { startButton }
                     </Board>
-                </div>
             </div>
         );
     }

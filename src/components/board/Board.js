@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Continent from './Continent';
 import Territory from './Territory';
+import Marker from './Marker';
 
 class Board extends React.Component {
     static propTypes = {
@@ -12,6 +13,7 @@ class Board extends React.Component {
 
     render () {
         const continentNodes = [];
+        const markerNodes = [];
         const { viewData } = this.props;
 
         for (const continentData of this.props.data.continents) {
@@ -39,6 +41,16 @@ class Board extends React.Component {
                     }
                 };
 
+                const marker = (
+                    <Marker
+                        key={ territory.id }
+                        { ...territory }
+                        { ...territoryViewData.center }
+                    />
+                )
+
+                markerNodes.push(marker);
+
                 continentTerritories.push(territory);
 
                 return (
@@ -49,7 +61,6 @@ class Board extends React.Component {
                         id={ territoryData.id }
                         name={ territoryData.name }
                         path={ territoryViewData.path }
-                        center= { territoryViewData.center }
                         data={ territory }
                     />
                 );
@@ -87,6 +98,7 @@ class Board extends React.Component {
                 preserveAspectRatio="xMinYMin meet"
             >
                 { continentNodes }
+                { markerNodes }
                 { this.props.children }
             </svg>
         );
