@@ -4,26 +4,35 @@ import Territory from './Territory';
 
 class Board extends React.Component {
     static propTypes = {
+        viewData: PropTypes.object.isRequired,
         data: PropTypes.object.isRequired,
         onTerritoryHover: PropTypes.func,
-        onTerritoryClick: PropTypes.func,
+        onTerritoryClick: PropTypes.func
     };
 
     render () {
         const continentNodes = [];
+        const { viewData } = this.props;
 
         for (const continentData of this.props.data.continents) {
             const continentTerritories = [];
+            const continentViewData = viewData.continents.find((value) => {
+                return value.id === continentData.id;
+            });
+
             const territoryNodes = continentData.territoryIds.map((id) => {
                 const territoryData = this.props.data.territories.find((territory) => {
                     return territory.id === id;
+                });
+                const territoryViewData = viewData.territories.find((value) => {
+                    return value.id === id;
                 });
 
                 const territory = {
                     id: territoryData.id,
                     name: territoryData.name,
                     owner: territoryData.owner,
-                    continentFill: continentData.fill,
+                    continentFill: continentViewData.fill,
                     continent: {
                         id: continentData.id,
                         name: continentData.name
@@ -39,11 +48,13 @@ class Board extends React.Component {
                         key={ territoryData.id }
                         id={ territoryData.id }
                         name={ territoryData.name }
-                        path={ territoryData.path }
+                        path={ territoryViewData.path }
+                        center= { territoryViewData.center }
                         data={ territory }
                     />
                 );
             });
+
 
             const continent = {
                 id: continentData.id,
@@ -58,8 +69,8 @@ class Board extends React.Component {
                     key={ continentData.id }
                     id={ continentData.id }
                     name={ continentData.name }
-                    stroke={ continentData.stroke }
-                    fill={ continentData.fill }
+                    stroke={ continentViewData.stroke }
+                    fill={ continentViewData.fill }
                     data={ continent }
                 >
                     { territoryNodes }

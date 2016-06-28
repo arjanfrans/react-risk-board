@@ -1,11 +1,25 @@
 import React, { PropTypes } from 'react';
-import Board from '../components/Board';
+import Board from '../components/board/Board';
 import TerritoryInfo from '../components/TerritoryInfo';
+import TurnInfo from '../components/TurnInfo';
 import BonusInfo from '../components/BonusInfo';
 import viewData from '../assets/board.json';
 import config from '../config';
 
+const PHASE_NAMES = {
+    placement: 'Placement',
+    attacking: 'Attack',
+    fortifying: 'Fortify',
+    setup_a: 'Setup I',
+    setup_b: 'Setup II',
+    battle: 'Battle',
+};
+
 class App extends React.Component {
+    static propTypes = {
+        game: PropTypes.object.isRequired,
+        players: PropTypes.array.isRequired
+    };
 
     constructor (props) {
         super(props);
@@ -16,6 +30,8 @@ class App extends React.Component {
     }
 
     render () {
+        const { game } = this.props;
+
         const territoryClickHandler = (evt) => {
             console.log('click', evt);
         };
@@ -36,34 +52,17 @@ class App extends React.Component {
             );
         }
 
+        const gameState = game.state;
         const data = {
-            ...viewData,
-            continents: viewData.continents.map((viewContinent) => {
-                const continent = config.continents.find((continent) => {
-                    return continent.id === viewContinent.id;
-                });
-
-                return {
-                    ...viewContinent,
-                    ...continent
-                };
-            }),
-            territories: viewData.territories.map((viewTerritory) => {
-                const territory = config.territories.find((territory) => {
-                    return territory.id === viewTerritory.id;
-                });
-
-                return {
-                    ...viewTerritory,
-                    ...territory
-                };
-            })
+            continents: gameState.board.continents,
+            territories: gameState.board.territories
         };
 
         return (
             <div>
                 <div>
                     <Board
+                        viewData={ viewData }
                         data={ data }
                         onTerritoryHover={ territoryHoverHandler }
                         onTerritoryClick={ territoryClickHandler }
@@ -71,6 +70,14 @@ class App extends React.Component {
                         { territoryInfo }
                         <BonusInfo
                             continents={ data.continents }
+                            continentsViewData={ viewData.continents }
+                        />
+                        <TurnInfo
+                            { ...gameState.turn }
+                            gamePhase={ gameState.phase }
+                            availableUnits={ game.getAvailableUnits(gameState.turn.player) }
+                            players={ this.props.players }
+                            phaseNames={ PHASE_NAMES }
                         />
                     </Board>
                 </div>

@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 class BonusInfo extends React.Component {
     static propTypes = {
         continents: PropTypes.array.isRequired,
+        continentsViewData: PropTypes.array.isRequired,
         x: PropTypes.number,
         x: PropTypes.number
     };
@@ -13,17 +14,21 @@ class BonusInfo extends React.Component {
     };
 
     render () {
-        const { x, y, continents } = this.props;
+        const { x, y, continents, continentsViewData } = this.props;
 
         const continentBonusNodes = continents.sort((a, b) => {
             return a.bonus < b.bonus;
         }).map((continent, index) => {
+            const continentViewData = continentsViewData.find((value) => {
+                return value.id === continent.id
+            });
+
             return (
                 <g
                     key={ index }
                 >
                     <rect
-                        fill={ continent.fill }
+                        fill={ continentViewData.fill }
                         x={ x + 4 }
                         y={ y + 10 + (26 * index) }
                         width={ 120 }

@@ -6,6 +6,7 @@ class Territory extends React.Component {
         name: PropTypes.string.isRequired,
         data: PropTypes.object.isRequired,
         path: PropTypes.string,
+        center: PropTypes.object,
         continentFill: PropTypes.string,
         hoverHandler: PropTypes.func,
         clickHandler: PropTypes.func
@@ -21,6 +22,7 @@ class Territory extends React.Component {
     }
 
     render () {
+        const { name } = this.props;
         const clickHandler = (evt) => {
             this.props.clickHandler(evt);
         };
@@ -46,9 +48,34 @@ class Territory extends React.Component {
             ownerColor = this.props.data.owner.color;
         }
 
+        let unitMarker = null;
+
+        if (this.props.center) {
+            unitMarker = (
+                <g>
+                    <circle
+                        cx={ this.props.center.x }
+                        cy={ this.props.center.y }
+                        fill="red"
+                        r={ 10 }
+                    />
+                    <text
+                        x={ this.props.center.x }
+                        y={ this.props.center.y }
+                        fill="black"
+                        strokeWidth={ 0 }
+                        fontSize={ 14 }
+                    >
+                        { name }
+                    </text>
+                </g>
+            );
+        }
+
         const svgPath = (
             <g>
                 <path
+                    id={ this.props.id }
                     onMouseEnter={ enterHandler }
                     onMouseLeave={ leaveHandler }
                     onClick={ clickHandler }
@@ -59,6 +86,7 @@ class Territory extends React.Component {
                     strokeWidth={ 2 }
                 >
                 </path>
+                { unitMarker }
             </g>
         );
 
