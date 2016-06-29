@@ -5,11 +5,12 @@ class Marker extends React.Component {
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
-        owner: PropTypes.object
+        owner: PropTypes.object,
+        units: PropTypes.number
     };
 
     render () {
-        const { x, y, name, owner } = this.props;
+        const { x, y, name, owner, units } = this.props;
         let circle = null;
 
         if (owner) {
@@ -33,7 +34,7 @@ class Marker extends React.Component {
                     strokeWidth={ 0 }
                     fontSize={ 14 }
                 >
-                    { name }
+                    ({ units }) { name }
                 </text>
             </g>
         );

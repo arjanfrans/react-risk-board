@@ -7,7 +7,7 @@ class Territory extends React.Component {
         data: PropTypes.object.isRequired,
         path: PropTypes.string,
         center: PropTypes.object,
-        continentFill: PropTypes.string,
+        fill: PropTypes.string,
         hoverHandler: PropTypes.func,
         clickHandler: PropTypes.func
     };
@@ -17,14 +17,22 @@ class Territory extends React.Component {
 
         this.state = {
             stroke: null,
-            strokeWidth: 1
+            strokeWidth: 1,
+            fill: null
         };
     }
 
     render () {
         const { name } = this.props;
+
+        const setFillColor = (color) => {
+            this.setState({
+                fill: color
+            });
+        };
+
         const clickHandler = (evt) => {
-            this.props.clickHandler(this.props.data);
+            this.props.clickHandler(this.props.data, setFillColor);
         };
 
         const enterHandler = (evt) => {
@@ -55,7 +63,7 @@ class Territory extends React.Component {
                     onMouseEnter={ enterHandler }
                     onMouseLeave={ leaveHandler }
                     onClick={ clickHandler }
-                    fill={ this.props.continentFill }
+                    fill={ this.state.fill || this.props.fill }
                     d={ this.props.path }
                     stroke={ ownerColor || this.state.stroke }
                     strokeOpacity={ ownerColor && this.state.stroke ? 1 : 0.6 }

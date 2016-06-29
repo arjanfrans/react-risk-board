@@ -38,7 +38,7 @@ class TurnInfo extends React.Component {
 
         let turnText = null;
 
-        if (gamePhase === 'setup_a') {
+        if (gamePhase === 'setup_a' || gamePhase === 'setup_b' || (gamePhase === 'battle' && phase === 'placement')) {
             turnText = (
                 <g>
                     <text

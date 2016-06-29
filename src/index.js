@@ -5,8 +5,9 @@ import Conquete, { PLAYER_EVENTS, GAME_EVENTS } from 'conquete';
 import config from './config';
 import AiSimulation from './ai/simulation';
 import debug from 'debug';
+import state from './states/setup-b';
 
-const game = Conquete.Game(config.game);
+const game = Conquete.Game(config.game, state);
 
 const aiListeners = config.aiListeners;
 const simulation = AiSimulation(game);

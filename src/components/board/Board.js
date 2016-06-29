@@ -36,6 +36,7 @@ class Board extends React.Component {
                     name: territoryData.name,
                     owner: players.find((player) => player.id === territoryData.owner),
                     continentFill: continentViewData.fill,
+                    units: territoryData.units,
                     continent: {
                         id: continentData.id,
                         name: continentData.name
@@ -94,7 +95,7 @@ class Board extends React.Component {
 
         return (
             <svg
-                width="90%" height="90%"
+                width="70%" height="70%"
                 viewBox="0 0 1024 792"
                 preserveAspectRatio="xMinYMin meet"
             >
