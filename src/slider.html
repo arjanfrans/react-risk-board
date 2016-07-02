@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+    <style type="text/css">
+
+svg {
+  background: #333;
+}
+
+.slider line {
+  stroke: white;
+  stroke-width: 10;
+  cursor: pointer;
+}
+
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+
+var w = 960,
+    h = 500,
+    p = 20;
+
+var svg = d3.select("body").append("svg:svg")
+      .attr("width", w + p * 2)
+      .attr("height", h + p * 2)
+      .append("g")
+      .attr("transform", "translate(" + p + "," + p + ")");
+    
+var slider = svg.append("g").attr("class", "slider");    
+
+var rect = slider.append("svg:rect")
+  .attr("class", "layer")
+  .attr("x", 0)
+  .attr("y", 0)
+  .attr("width", w)
+  .attr("height", h)
+  
+var _dragSliderLine;
+
+var sliderLine = slider.append("line")        
+  .attr("x1", 100)
+  .attr("x2", 100)
+  .attr("y1", -p*2)
+  .attr("y2", h + p * 2)  
+  .on("mousedown", function(){            
+    d3.event.preventDefault();
+    _dragSliderLine = this;
+    
+    this.style.cursor = "move";
+    document.body.focus();
+    document.onselectstart = function () { return false; };
+    
+    return false;
+  });   
+
+svg.on("mouseup", function(){
+  d3.event.preventDefault();
+  if (_dragSliderLine != null){
+    _dragSliderLine.style.cursor = "pointer";
+    _dragSliderLine = null;
+  }
+})
+  
+rect.on("mousemove", function(){   
+  d3.event.preventDefault();     
+  
+  if( _dragSliderLine != null ){ 
+    var coordinateX = d3.svg.mouse(this)[0];
+    sliderLine.attr("x1", coordinateX).attr("x2", coordinateX);  
+  }
+});  
+    
+    </script>
+  </body>
+</html>
+

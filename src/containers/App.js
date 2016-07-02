@@ -6,6 +6,7 @@ import BonusInfo from '../components/BonusInfo';
 import StartButton from '../components/StartButton';
 import DiceControls from '../components/DiceControls';
 import TurnControls from '../components/TurnControls';
+import ActionButton from '../components/ui/ActionButton';
 import viewData from '../assets/board.json';
 import CurrentBattle from '../components/CurrentBattle';
 import config from '../config';
@@ -212,46 +213,53 @@ class App extends React.Component {
         }
 
         return (
-            <div>
-                    <Board
-                        viewData={ viewData }
-                        data={ data }
-                        players={ this.props.players }
-                        onTerritoryHover={ territoryHoverHandler }
-                        onTerritoryClick={ territoryClickHandler }
-                    >
-                        { territoryInfo }
-                        <BonusInfo
-                            continents={ data.continents }
-                            continentsViewData={ viewData.continents }
-                        />
-                        <TurnInfo
-                            { ...gameState.turn }
-                            gamePhase={ gameState.phase }
-                            availableUnits={ game.getAvailableUnits(gameState.turn.player) }
-                            players={ this.props.players }
-                            phaseNames={ PHASE_NAMES }
-                        />
-                        { startButton }
-                    </Board>
-                    <TurnControls
+            <svg
+                width="70%" height="70%"
+                viewBox="0 0 1024 792"
+                preserveAspectRatio="xMinYMin meet"
+            >
+                <Board
+                    viewData={ viewData }
+                    data={ data }
+                    players={ this.props.players }
+                    onTerritoryHover={ territoryHoverHandler }
+                    onTerritoryClick={ territoryClickHandler }
+                >
+                    { territoryInfo }
+                    <BonusInfo
+                        continents={ data.continents }
+                        continentsViewData={ viewData.continents }
+                    />
+                    <TurnInfo
                         { ...gameState.turn }
-                        currentLocalPlayer={ this.state.currentLocalPlayer }
                         gamePhase={ gameState.phase }
                         availableUnits={ game.getAvailableUnits(gameState.turn.player) }
-                        onNextPhaseClick={ nextPhaseClickHandler }
+                        players={ this.props.players }
+                        phaseNames={ PHASE_NAMES }
                     />
-                    <CurrentBattle
-                        battle={ gameState.turn.battle }
-                        players= { this.props.players }
-                        currentLocalPlayer={ this.state.currentLocalPlayer }
-                    />
-                    <DiceControls
-                        maxDice={ 3 }
-                        onDiceRoll={ diceRollHandler }
-                        color="red"
-                    />
-            </div>
+                    { startButton }
+                </Board>
+                {/* <TurnControls */}
+                {/*     { ...gameState.turn } */}
+                {/*     currentLocalPlayer={ this.state.currentLocalPlayer } */}
+                {/*     gamePhase={ gameState.phase } */}
+                {/*     availableUnits={ game.getAvailableUnits(gameState.turn.player) } */}
+                {/*     onNextPhaseClick={ nextPhaseClickHandler } */}
+                {/* /> */}
+                {/* <CurrentBattle */}
+                {/*     battle={ gameState.turn.battle } */}
+                {/*     players= { this.props.players } */}
+                {/*     currentLocalPlayer={ this.state.currentLocalPlayer } */}
+                {/* /> */}
+                {/* <DiceControls */}
+                {/*     maxDice={ 3 } */}
+                {/*     onDiceRoll={ diceRollHandler } */}
+                {/*     color="red" */}
+                {/* /> */}
+                <ActionButton
+                    game={ game }
+                />
+            </svg>
         );
     }
 }

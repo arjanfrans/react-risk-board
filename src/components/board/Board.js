@@ -94,15 +94,11 @@ class Board extends React.Component {
         }
 
         return (
-            <svg
-                width="70%" height="70%"
-                viewBox="0 0 1024 792"
-                preserveAspectRatio="xMinYMin meet"
-            >
+            <g>
                 { continentNodes }
                 { markerNodes }
                 { this.props.children }
-            </svg>
+            </g>
         );
     }
 }
